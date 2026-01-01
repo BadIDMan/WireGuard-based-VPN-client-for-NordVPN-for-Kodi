@@ -10,7 +10,7 @@ Command to run to retrieve WireGuard NordVPN Private Key:
 `curl -s -u token:<ACCESS_TOKEN> https://api.nordvpn.com/v1/users/services/credentials | jq -r .nordlynx_private_key`
 
 
-To run these commands on Windows, curl and jq must be installed.
+To run this command on Windows, curl and jq must be installed.
 They can be installed easily using:
 
 `winget install curl`
