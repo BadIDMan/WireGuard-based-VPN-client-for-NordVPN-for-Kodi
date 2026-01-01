@@ -17,9 +17,7 @@
       point="xbmc.addon.metadata">
     <summary>WireGuard tunnel monitor</summary>
     <description>
-         This service sets up and monitors a WireGuard tunnel for NordVPN on CoreELEC.
-         It automatically installs required components like Entware, etc.
-
+         This service sets up and monitors a WireGuard tunnel for NordVPN.
          Valid NordVPN WireGuard Private Key is mandatory.
          After configuration, the service monitors the tunnel, restarts it if needed and displays Kodi notifications about the VPN status.
 
@@ -34,4 +32,5 @@
   </extension>
 
 </addon>
+
 
