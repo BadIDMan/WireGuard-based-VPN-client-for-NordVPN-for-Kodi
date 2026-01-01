@@ -1,33 +1,17 @@
-This is a python code that create service which will run in CoreELEC-like devices with Kodi which allows setting up and managing a WireGuard tunnel for NordVPN only.
+** WireGuard Monitor for Kodi / CoreELEC (NordVPN)
 
-It automatically installs Entware and the required tools: wireguard-tools, wireguard-go, wg-quick, curl, and jq.
+This Kodi service provides a lightweight WireGuard VPN client for NordVPN only, designed for CoreELEC systems.
+It automatically installs required dependencies (Entware, WireGuard, curl, jq) and creates a WireGuard configuration template.
 
-Before using this service, a NordVPN user must generate a WireGuard Private Key.
-To do this, log in to: https://my.nordaccount.com/dashboard/nordvpn/
+The user only needs to supply a NordVPN WireGuard Private Key.
+On each boot, the service dynamically fetches the optimal NordVPN server, public key, endpoint, and VPN IP, and injects them into the config.
 
-In the Access Token section, create a token.
-After creating the token, the corresponding WireGuard Private Key(s) must be retrieved.
+The service monitors:
 
-The full process is explained in this YouTube video:
-https://youtu.be/eY4sYGYt0b4?si=GMt0W4KKJtFXS6zG
+* LAN connectivity
+* WireGuard interface state
+* Handshake health
+* Internet reachability
 
-The commands needed to retrieve and use the keys are available here:
-https://github.com/automation-avenue/NordVPN_Wireguard_key/blob/main/README.md
-
-To run these commands on Windows, curl and jq must be installed.
-They can be installed easily using:
-
-winget install curl
-winget install jq
-
-Command to run to get WireGuard NordVPN Private Key is:
-curl -s -u token:<ACCESS_TOKEN> https://api.nordvpn.com/v1/users/services/credentials | jq -r .nordlynx_private_key
-
-Once the setup is complete, this service monitors the WireGuard tunnel status, automatically restarts it if it goes down, and displays notifications in Kodi.
-
-I am not a Python programmer.
-This service was created with the help of ChatGPT.
-
-I tested this service in many usage scenarios, but it may not work correctly in every environment.
-Everyone is free to modify and adapt this service for their own needs.
-I am not responsible for any issues or consequences that may occur while using it.
+It automatically restarts the tunnel if needed and displays Kodi notifications for all important events.
+No GUI, no credentials stored, minimal user interaction.
