@@ -16,6 +16,17 @@ The service monitors:
 It automatically restarts the tunnel if needed and displays Kodi notifications for all important events.
 No GUI, no credentials stored, minimal user interaction.
 
-Details: https://github.com/BadIDMan/service.wg.monitor/wiki
+Before using this service, a NordVPN user **must** generate a WireGuard Private Key.
 
-Technical part for how to create NordVPN Access token and then extract Private Key from it is included in README-tech-details.md file.
+To do this, log in to: https://my.nordaccount.com/dashboard/nordvpn/ 
+and in the Access Token section, create a token. After creating the token, the corresponding WireGuard Private Key must be retrieved.
+
+Command to run to retrieve WireGuard NordVPN Private Key:
+
+`curl -s -u token:<ACCESS_TOKEN> https://api.nordvpn.com/v1/users/services/credentials | jq -r .nordlynx_private_key`
+
+To run this command on Windows, _curl_ and _jq_ must be installed. They can be installed easily using:
+
+`winget install curl` and `winget install jq`
+
+Details: https://github.com/BadIDMan/service.wg.monitor/wiki
