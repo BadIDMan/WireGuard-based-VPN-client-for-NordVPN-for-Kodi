@@ -72,7 +72,6 @@ def run(cmd):
 # ==========================================
 
 
-
 # ================= LOG TRIM================
 def trim_log_file():
     if not os.path.exists(LOG):
@@ -93,7 +92,6 @@ def trim_log_file():
     except Exception:
         pass
 # ==========================================
-
 
 
 # ================= NETWORK HELPERS =================
@@ -241,6 +239,8 @@ def install_wg_tools():
         f"{ENTWARE_OPKG} install "
         "wireguard-tools wireguard-go wg-quick curl jq"
     )
+# ==========================================
+
 
 # ================= NORDVPN FETCH =================
 def fetch_nordvpn_values():
@@ -340,8 +340,6 @@ PersistentKeepalive = 25
 # ==========================================
 
 
-
-
 # ================= WG CONFIG UPDATE =================
 def update_wg_config():
     gateway, lan_iface = get_default_gateway()
@@ -402,7 +400,6 @@ def update_wg_config():
  
     except Exception as e:
         log("WG_MONITOR: ERROR", f"Failed to update {WG_CONF}: {e}")
-
 # ==========================================
 
 
@@ -416,8 +413,8 @@ def get_private_key():
     except Exception:
         pass
     return ""
-
 # ==========================================
+
 
 # ================= ENTWARE PACKAGES UPDATE CHECK =================
 def entware_update_packages():
@@ -465,6 +462,15 @@ def entware_update_packages():
         notify(f"Entware packages updated. Details in {LOG}", 10000)
 # ==========================================
 
+# ================= OS PLATFORM CHECK =================
+def check_os():
+    if xbmc.getCondVisibility("System.Platform.Linux"):
+        return True
+    xbmc.log("WG_MONITOR: UNSUPPORTED_OS - WireGuard service requires Linux platform", xbmc.LOGERROR)
+    xbmcgui.Dialog().notification("WireGuard Monitor", "Unsupported OS. This service requires Linux. It won't work here. Disable or uninstall it!", xbmcgui.NOTIFICATION_ERROR, 25000)
+    return False
+# ==========================================
+
 
 
 
@@ -472,6 +478,10 @@ def entware_update_packages():
 class WGMonitor(xbmc.Monitor):
 
     def run(self):
+        
+        if not check_os():
+            return
+        
         wg_ok_notified = False
         log("WG_MONITOR: INFO", "WireGuard monitor service starting")
         trim_log_file()
