@@ -584,7 +584,7 @@ class WGMonitor(xbmc.Monitor):
             log("WG_MONITOR: WG_OK", f"Tunnel active. VPN IP: {ip}")
 
             if not wg_ok_notified:
-                notify(f"WireGuard OK.VPN IP:{ip}", 10000)
+                notify(f"WireGuard OK. VPN IP:{ip}", 10000)
                 wg_ok_notified = True
 
             time.sleep(CHECK_INTERVAL)
